@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+这是我们的首页！
+
+<ul id="userList"></ul>
+
+<form action="/users" method="post">
+    <input type="text" name="name">
+    <input type="number" name="age">
+    <button>新增用户</button>
+</form>
+
+<img src="/img.jpg">
+
+<!--发送一个ajax请求，获取用户列表-->
+<script>
+    // var xhr = new XMLHttpRequest();
+    // xhr.open('get', '/users');
+    // xhr.send();
+    // xhr.onreadystatechange = function () {
+    //     if (xhr.readyState === 4 && xhr.status === 200) {
+    //         //请求成功了
+    //         var users = JSON.parse(xhr.responseText);
+    //         //遍历并显示数据
+    //         var inner = ''
+    //         for (var i = 0; i < users.length; i++) {
+    //             const u = users[i];
+    //             inner += '<li>' + u.name + '</li>';
+    //         }
+    //         userList.innerHTML = inner;
+    //     }
+    // }
+
+    //fetch api，返回Promise
+    fetch('/users')
+        .then(function (resp) {
+            return resp.json()
+        })
+        .then(function (users) {
+            //遍历并显示数据
+            var inner = ''
+            for (var i = 0; i < users.length; i++) {
+                const u = users[i];
+                inner += '<li>' + u.name + '</li>';
+            }
+            userList.innerHTML = inner;
+        })
+</script>
+
+</body>
+</html>
