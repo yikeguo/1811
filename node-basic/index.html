@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+这是网站首页
+
+<!--添加用户-->
+<form action="/api/users" method="post">
+    <input type="text" name="name">
+    <input type="number" name="age">
+    <input type="submit" value="新增用户">
+</form>
+
+
+<ul id="usersList"></ul>
+
+<script>
+    // XMLHttpRequest
+    // fetch
+    fetch('/api/users').then(function (res) {
+        console.log(res);
+        // 转换为js对象
+        return res.json();
+    }).then(function (users) {
+        console.log(users);
+
+        // 显示在界面中
+        document.getElementById('usersList').innerHTML =
+            users.map(function (user) {
+                //转换数据为html字符串
+                return '<li>' + user.name + '</li>'
+            }).join('');
+    }).catch(function (err) {
+        alert('请求报错了！')
+    })
+</script>
+</body>
+</html>
