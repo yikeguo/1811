@@ -1,0 +1,44 @@
+<!--html注释-->
+{{! hbs注释}}
+
+<!--html内容-->
+{{htmlStr}}
+{{{htmlStr}}}
+
+<!--条件语句-->
+{{#if bool}}
+    欢迎您，tom
+{{else}}
+    <a href="#">请登录</a>
+{{/if}}
+
+{{#unless abc}}
+    abc内容
+{{/unless}}
+
+<!--循环-->
+<ul>
+    {{#each arr}}
+        <li>
+            #{{@index}}
+            {{name}} -
+            {{city.cname}} -
+            {{#each hobby}}
+                {{.}}
+            {{/each}}
+        </li>
+    {{else}}
+        没有任何数据
+    {{/each}}
+</ul>
+<!--遍历对象-->
+{{#each obj}}
+    key: {{@key}}
+    value: {{.}}
+{{/each}}
+
+
+
+
+
+
