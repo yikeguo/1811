@@ -16,7 +16,7 @@ module.exports.initLocals = async function (req, res, next) {
             const courses = await query(sql);
             courses.forEach(course => 
                 course.cooperation = course.cooperation.split(','));
-                console.log(courses);
+                //console.log(courses);
             //res.locals.courses = coursess;
 
             coursesCache = res.locals.courses = courses;

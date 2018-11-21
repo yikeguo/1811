@@ -1,0 +1,16 @@
+GET http://localhost:3000/users?a=b
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{"name":"Jerry","age":20}
+
+###
+PUT http://localhost:3000/users
+Content-Type: application/json
+
+{"name":"Jerry","age":21}
+
+###
+DELETE  http://localhost:3000/users/tom

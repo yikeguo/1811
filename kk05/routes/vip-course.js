@@ -13,9 +13,9 @@ router.get('/:course', (req, res, next) => {
     // 传参方式2
     res.locals.bar = 'foo';
     // 方式一：url参数，req.params
-    console.log(req.params.course);
+    //console.log(req.params.course);
     // 方式二：查询参，req.query
-    console.log(req.query.a);
+    //console.log(req.query.a);
     // 方式三：请求体body
 
     // 错误处理：
