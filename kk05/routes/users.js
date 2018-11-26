@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
 //    传参方式3：body
-    console.log(req.body);
+    //console.log(req.body);
 
     try {
         users.push(req.body);
