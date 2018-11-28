@@ -12,22 +12,22 @@ const sequelize = new Sequelize('kkb','kaike', '111111', {
     }
 })
 
-const User = sequelize.define('user', {
-    firstName: {type: Sequelize.STRING(20), notNull: true},
-    lastName: Sequelize.STRING(20),
-    age: Sequelize.INTEGER
-})
-//同步数据库
-User.sync({force: true}).then(() => {
-    return User.create({
-        firstName: 'Tom',
-        lastName: 'Cruise'
-    })
-}).then(() => {
-    User.findAll().then( users => {
-        //console.log(users)
-    })
-})
+// const User = sequelize.define('user', {
+//     firstName: {type: Sequelize.STRING(20), notNull: true},
+//     lastName: Sequelize.STRING(20),
+//     age: Sequelize.INTEGER
+// })
+// //同步数据库
+// User.sync({force: true}).then(() => {
+//     return User.create({
+//         firstName: 'Tom',
+//         lastName: 'Cruise'
+//     })
+// }).then(() => {
+//     User.findAll().then( users => {
+//         //console.log(users)
+//     })
+// })
 
 const db = {Sequelize, sequelize};
 fs.readdirSync(__dirname)

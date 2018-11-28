@@ -34,7 +34,14 @@ app.set('view engine', 'hbs');
 app.use(logger('dev'));//日志
 app.use(express.json());//获取ajax传递json
 app.use(express.urlencoded({extended: false}));//解析url参数
-app.use(cookieParser());//cookie解析
+app.use(cookieParser('secret'));//cookie解析
+const session = require('express-session');
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie:{}
+}))
 // 设置静态目录
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -50,6 +57,7 @@ app.use('/open-courses', openCourses);
 app.use('/vip-course', vipCourse);
 app.use('/admin', adminRouter);
 app.use('/api/code', codeRouter);
+app.use('/api/users',  require('./routes/api/users'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
