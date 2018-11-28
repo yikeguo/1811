@@ -5,14 +5,22 @@
  */
 
 var app = require('../app');
+<<<<<<< HEAD
 var debug = require('debug')('kkb:server');
+=======
+var debug = require('debug')('kaikeba:server');
+>>>>>>> f2ea80d13a1d20af6bb75d823fc4a166be34a617
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 
+<<<<<<< HEAD
 var port = normalizePort(process.env.PORT || '3000');
+=======
+var port = normalizePort(process.env.PORT || '8080');
+>>>>>>> f2ea80d13a1d20af6bb75d823fc4a166be34a617
 app.set('port', port);
 
 /**
