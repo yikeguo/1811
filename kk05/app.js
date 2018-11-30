@@ -36,11 +36,14 @@ app.use(express.json());//获取ajax传递json
 app.use(express.urlencoded({extended: false}));//解析url参数
 app.use(cookieParser('secret'));//cookie解析
 const session = require('express-session');
+const Store = require('express-mysql-session')(session);
+const {pool} = require('./models/db');
+const store = new Store(null, pool);
 app.use(session({
+    store,
     secret: 'secret',
     resave: false,
-    saveUninitialized: false,
-    cookie:{}
+    saveUninitialized: false
 }))
 // 设置静态目录
 app.use(express.static(path.join(__dirname, 'public')));
