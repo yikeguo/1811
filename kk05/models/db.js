@@ -26,5 +26,6 @@ module.exports = {
                 else resolve(results);
             });
         })
-    }
+    },
+    pool
 }
