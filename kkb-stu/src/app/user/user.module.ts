@@ -7,7 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user/user.component';
 import { PhoneValidatorDirective } from './register/phone-validator.directive';
-import { VcodeValidatorDirective } from './register/vcode-validator.directive';
+import { CaptchaValidatorDirective } from './register/captcha-validator.directive';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { VcodeValidatorDirective } from './register/vcode-validator.directive';
     LoginComponent,
     RegisterComponent,
     PhoneValidatorDirective,
-    VcodeValidatorDirective
+    CaptchaValidatorDirective
   ],
   imports: [
     CommonModule,
