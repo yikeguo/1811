@@ -24,7 +24,8 @@ export class LoginComponent {
     this.us.login(this.model).subscribe( 
       (result: boolean) => {
         if (result) {
-          this.router.navigate(['/main'])
+          console.log('login!')
+          this.router.navigate(['/main']);
         } else {
           alert('登录失败！');
         }
