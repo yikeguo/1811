@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { AppRoutingModule } from './app-routing.module';
 import { RxjsModule } from './rxjs/rxjs.module';
 import { HomeComponent } from './home/home.component';
+import { MainModule } from './main/main.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { HomeComponent } from './home/home.component';
     HttpClientModule,
     UserModule,
     RxjsModule,
+    MainModule,
     AppRoutingModule
   ],
   providers: [],
