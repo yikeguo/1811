@@ -70,4 +70,17 @@ export class UserService {
       catchError(error => of(false))
     );
   }
+
+  logout() {
+    return this.http.post(this.url + 'logout', null)
+      .pipe(
+        map((result: Result<any>) => {
+          if (result.success) {
+            this.user = null;
+            return true;
+          }
+          return false;
+        })
+      )
+  }
 }
