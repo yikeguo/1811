@@ -10,9 +10,11 @@ import { AccountComponent } from './ucenter/account/account.component';
 import { CommentComponent } from './ucenter/comment/comment.component';
 import { CourseComponent as PathComponent } from './ucenter/course/course.component';
 import { CollectionComponent } from './ucenter/collection/collection.component';
+import { MenuComponent } from '../common/menu/menu.component';
 
 @NgModule({
-  declarations: [MainComponent, UcenterComponent, CourseComponent, MessageComponent, AccountComponent, CommentComponent, PathComponent, CollectionComponent],
+  declarations: [MainComponent, UcenterComponent, CourseComponent, MessageComponent, AccountComponent, CommentComponent, PathComponent, CollectionComponent,
+    MenuComponent],
   imports: [
     CommonModule,
     MainRoutingModule

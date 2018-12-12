@@ -91,4 +91,13 @@ router.post('/is-login', (req, res) => {
         res.json({success: false, message: '用户未登录'})
     }
 });
+router.post('/logout', (req, res) => { 
+    req.session.destroy( (err) => {
+        if (err) {
+            res.json({success: false, message: '注销失败'})
+        } else {
+            res.json({success: true})
+        }
+    })
+});
 module.exports = router;
