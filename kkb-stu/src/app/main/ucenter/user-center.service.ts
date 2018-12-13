@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserCenterService {
-  url ='/api/';
+  url ='/api/courses/';
 
   constructor(private http: HttpClient) { }
 
-  serarchCourse(keyword) {
-    return this.http.get(this.url + 'search', {params: {}})
+  searchCourse(keyword) {
+
+    const params = new HttpParams()
+      .append('keyword', keyword);
+    return this.http.get(this.url + 'search', {params});
   }
 }

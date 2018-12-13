@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, MenuItemType } from '../common/menu/menu.component';
 import { Router } from '@angular/router';
 import { UserService } from '../user/user.service';
+import { of, Subject } from 'rxjs';
+import { UserCenterService } from './ucenter/user-center.service';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Result } from '../common/result';
 
 @Component({
   selector: 'app-main',
@@ -31,10 +35,45 @@ export class MainComponent implements OnInit {
     }, type: MenuItemType.Callback}
   ]
 
+  // searchResult: MenuItem[];
+  // subject: Subject<string> = new Subject<string>();
+
+  searchResult: MenuItem[];
+  subject: Subject<string> = new Subject<string>();
+
   constructor(private router: Router,
-    private us: UserService) { }
+    private us: UserService,
+    private ucs: UserCenterService) { 
+      this.subject.pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap(keyword => {
+          if(keyword === '') {
+            return of(null);
+          }
+          return this.ucs.searchCourse(keyword);
+        })
+      ).subscribe(
+        (result: Result<any[]>) => {
+          if (result && result.success) {
+            this.searchResult = result.data.map(item => {
+              return {
+                label: item.name,
+                url: item.url,
+                type: MenuItemType.Link
+              };
+            });
+          } else {
+            this.searchResult = null;
+          }
+        }
+      )
+    }
 
   ngOnInit() {
   }
 
+  search(keyword) {
+    this.subject.next(keyword);
+  }
 }
