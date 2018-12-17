@@ -10,14 +10,17 @@ import { AccountComponent } from './ucenter/account/account.component';
 import { CommentComponent } from './ucenter/comment/comment.component';
 import { CourseComponent as PathComponent } from './ucenter/course/course.component';
 import { CollectionComponent } from './ucenter/collection/collection.component';
-import { MenuComponent } from '../common/menu/menu.component';
+import { NgxUploaderModule } from 'ngx-uploader';
+import { MyCompsModule } from '../common/my-comps.module';
 
 @NgModule({
   declarations: [MainComponent, UcenterComponent, CourseComponent, MessageComponent, AccountComponent, CommentComponent, PathComponent, CollectionComponent,
-    MenuComponent],
+  ],
   imports: [
     CommonModule,
-    MainRoutingModule
+    MainRoutingModule,
+    MyCompsModule,
+    NgxUploaderModule
   ]
 })
 export class MainModule { }
