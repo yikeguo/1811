@@ -148,27 +148,67 @@ router.get('/stage', async (req, res, next) => {
 
 
 router.post('/stage', async (req, res, next) => {
+    let conn;
     try {
-        // 插入学习阶段
-        const result = await query('INSERT INTO stage SET ?', req.body);
+        // 1. 获取连接
+        conn = await getConnection();
+        // 2. 开启事务
+        beginTransaction(conn);
+        // 3. 开启操作
+        // 3.1 插入学习阶段
+        const result = await query2(conn, 'INSERT INTO stage SET ?', req.body);
         if (result.affectedRows > 0) {
             // 根据班级id获取该班所有学员id
             const stageId = result.insertId;
-            const ids = await query('SELECT user_id FROM user_clazz WHERE clazz_id=?', req.body.clazz_id);
+            const ids = await query2(conn, 'SELECT user_id FROM user_clazz WHERE clazz_id=?', req.body.clazz_id);
             console.log(stageId, ids);
-            // 为每位学员添加学习状态
+            // 3.2 为每位学员添加学习状态
             for (let o of ids) {
-                await query('INSERT INTO status SET ?',
+                await query2(conn, 'INSERT INTO status SET ?',
                     {user_id: o.user_id, stage_id: stageId})
             }
+            // 4.提交事务
+            await commit(conn);
             res.render('admin/result', {layout: 'layout-admin', message: '插入成功'})
         } else {
             res.render('admin/result', {layout: 'layout-admin', message: '插入阶段失败'})
         }
     } catch (error) {
         console.log(error);
+        // 有错误发生，回滚
+        await rollback(conn);
         res.render('admin/result', {layout: 'layout-admin', message: '服务器内部错误'})
     }
 });
+
+// 视频管理
+router.get('/video', async (req, res, next) => {
+    const clazzes = await query('select * from clazz');
+    res.render('admin/video', {layout: 'layout-admin', clazzes, nav: 'video'})
+})
+
+router.get('/get-stage', async (req, res, next) => {
+    const stages = await query('select * from stage where clazz_id=?', req.query.clazzId);
+    res.json({success: true, data: stages});
+})
+
+const qs = require('qs'); // 使用qs才能解析req.body中的嵌套数据
+router.post('/video', async (req, res, next) => {
+    const body = qs.parse(req.body);
+    try {
+        for (let video of body.video) {
+            video.stage_id = body.stage_id;
+            await query('INSERT INTO video SET ?', video)
+        }
+        // 更新状态表中videos字段：
+        await query('UPDATE status SET videos=? WHERE stage_id=?',
+            [body.video.length.toString(), body.stage_id]);
+        res.render('admin/result', {
+            layout: 'layout-admin', nav: 'video', message: '新增成功'})
+    } catch (error) {
+        res.render('admin/result', {
+            layout: 'layout-admin', nav: 'video', message: '新增失败'})
+    }
+})
 
 module.exports = router;

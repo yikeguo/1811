@@ -162,4 +162,35 @@ router.get('/my-courses', async (req, res) => {
 
     }
 })
+
+// 概况
+router.get('/pandect/:classId', async (req, res) => {
+    try {
+        const sql = `select * from pandect where user_id=? and clazz_id=?`
+        const data = await query(sql, [req.session.user.id, req.params.classId]);
+        if (data.length > 0)
+            res.json({success: true, data: data[0]});
+        else
+            res.json({success: false});
+    } catch (error) {
+
+    }
+})
+
+router.get('/stages/:classId', async (req, res) => {
+    try {
+        const sql = `SELECT st.id,st.name,st.title,st.sub_title,s.state,s.videos
+                         FROM status s
+                        left join stage st on st.id=s.stage_id
+                        left join clazz c on st.clazz_id=c.id
+                        where user_id=? and clazz_id=?;`
+        const data = await query(sql, [req.session.user.id, req.params.classId]);
+        if (data.length > 0)
+            res.json({success: true, data});
+        else
+            res.json({success: false});
+    } catch (error) {
+
+    }
+})
 module.exports = router;
