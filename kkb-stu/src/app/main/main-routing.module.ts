@@ -19,7 +19,7 @@ const routes: Routes = [
         {path: 'collection', component: CollectionComponent},
         {path: 'account', component: AccountComponent},
       ]},
-      {path: 'course', component: CourseComponent},
+      {path: 'course/:classId', component: CourseComponent},
       {path:'', pathMatch: 'full', redirectTo: '/main/ucenter'}
     ]
   }

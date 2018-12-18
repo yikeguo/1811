@@ -8,17 +8,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { RxjsModule } from './rxjs/rxjs.module';
 import { HomeComponent } from './home/home.component';
 import { MainModule } from './main/main.module';
+import { CompCommunicateModule } from './comp-communicate/comp-communicate.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
   BrowserModule,
     HttpClientModule,
     UserModule,
     RxjsModule,
+    CompCommunicateModule,
     MainModule,
     AppRoutingModule
   ],

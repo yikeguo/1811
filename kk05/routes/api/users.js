@@ -100,4 +100,97 @@ router.post('/logout', (req, res) => {
         }
     })
 });
+
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'public/images/')
+    },
+    filename: function(req, file, cb) {
+        let extname = '';
+        switch (file.mimetype) {
+            case 'image/jpeg': extname = '.jpg';break;
+            case 'image/png': extname = '.png';break;
+            case 'image/gif': extname = '.gif';break;
+        }
+        cb(null, Date.now() + extname);
+    }
+})
+const upload = multer({
+    //dest: 'public/images',
+    storage,
+    limits: {fileSize: 1 * 1024 *1024},
+    fileFilter: function (req, file, cb){
+        if(file.mimetype === 'image/gif' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' ){
+            cb(null, true)
+        }else {
+            cb(new Error('请上传图片格式'), false);
+        }
+    }
+});
+router.post('/uploadAvatar', upload.single('file'),
+    async (req, res) => {
+        if (!req.file) {
+            res.sendStatus(500);
+        }else {
+            try {
+                req.session.user.avatar = req.file.filename;
+
+                const result = await query(`UPDATE user SET avatar=? WHERE id=?`,
+                    [req.file.filename, req.session.user.id]);
+                
+                console.log(result);
+                if (result.affectedRows > 0) {
+                    res.json({success: true, data: req.file.filename})
+                }
+            } catch (error) {
+
+            }
+        }
+    }
+)
+
+router.get('/my-courses', async (req, res) => {
+    try {
+        const sql = `select c.id,c.name,c.phase,vc.poster from user_clazz uc
+                        left join clazz c on uc.clazz_id = c.id
+                        left join vip_course vc on c.course_id = vc.id
+                        where user_id=?`
+        const data = await query(sql, req.session.user.id);
+        res.json({success: true, data})
+    } catch (error) {
+
+    }
+})
+
+// 概况
+router.get('/pandect/:classId', async (req, res) => {
+    try {
+        const sql = `select * from pandect where user_id=? and clazz_id=?`
+        const data = await query(sql, [req.session.user.id, req.params.classId]);
+        if (data.length > 0)
+            res.json({success: true, data: data[0]});
+        else
+            res.json({success: false});
+    } catch (error) {
+
+    }
+})
+
+router.get('/stages/:classId', async (req, res) => {
+    try {
+        const sql = `SELECT st.id,st.name,st.title,st.sub_title,s.state,s.videos
+                         FROM status s
+                        left join stage st on st.id=s.stage_id
+                        left join clazz c on st.clazz_id=c.id
+                        where user_id=? and clazz_id=?;`
+        const data = await query(sql, [req.session.user.id, req.params.classId]);
+        if (data.length > 0)
+            res.json({success: true, data});
+        else
+            res.json({success: false});
+    } catch (error) {
+
+    }
+})
 module.exports = router;
