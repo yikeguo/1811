@@ -37,3 +37,11 @@ a.stage-name:hover { text-decoration: none;}
   line-height: 58px; text-align: center; font-size: 14px; cursor: pointer;}
 .tabs a:hover{ text-decoration: none;}
 .tabs a.active{ color: #00aae5; border-bottom: 2px solid #00aae5;}
+
+.header{
+  position:relative;  padding: 0 20px 0 15px;  height: 60px;
+  line-height: 60px;  border-bottom: 1px solid #e9e9e9;
+}
+.title{ font-size: 16px;  line-height: 22px;  color: #242629; }
+.time{ float: right; margin-top: 21px; margin-left: 10px;
+  font-size: 13px; line-height: 18px; color: #b7b9bd;}

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const {query} = require('../../models/db');
+const {requireUser} = require('../../middleware')
 
 router.post('/login', async(req, res) => {
     const {phone, password, autoLogin} = req.body;
@@ -128,7 +129,7 @@ const upload = multer({
         }
     }
 });
-router.post('/uploadAvatar', upload.single('file'),
+router.post('/uploadAvatar', [requireUser, upload.single('file')],
     async (req, res) => {
         if (!req.file) {
             res.sendStatus(500);
@@ -150,7 +151,7 @@ router.post('/uploadAvatar', upload.single('file'),
     }
 )
 
-router.get('/my-courses', async (req, res) => {
+router.get('/my-courses', requireUser, async (req, res) => {
     try {
         const sql = `select c.id,c.name,c.phase,vc.poster from user_clazz uc
                         left join clazz c on uc.clazz_id = c.id
@@ -164,7 +165,7 @@ router.get('/my-courses', async (req, res) => {
 })
 
 // 概况
-router.get('/pandect/:classId', async (req, res) => {
+router.get('/pandect/:classId', requireUser, async (req, res) => {
     try {
         const sql = `select * from pandect where user_id=? and clazz_id=?`
         const data = await query(sql, [req.session.user.id, req.params.classId]);
@@ -177,7 +178,7 @@ router.get('/pandect/:classId', async (req, res) => {
     }
 })
 
-router.get('/stages/:classId', async (req, res) => {
+router.get('/stages/:classId', requireUser, async (req, res) => {
     try {
         const sql = `SELECT st.id,st.name,st.title,st.sub_title,s.state,s.videos
                          FROM status s

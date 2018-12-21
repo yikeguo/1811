@@ -188,7 +188,7 @@ router.get('/video', async (req, res, next) => {
 })
 
 router.get('/get-stage', async (req, res, next) => {
-    const stages = await query('select * from stage where clazz_id=?', req.query.clazzId);
+    const stages = await query('select * from kkb.stage where clazz_id=?', req.query.clazzId);
     res.json({success: true, data: stages});
 })
 

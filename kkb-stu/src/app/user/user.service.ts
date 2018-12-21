@@ -25,13 +25,13 @@ export class UserService {
 
   login(user: LoginUser) {
     return this.http.post<Result<User>>(this.url + 'login', user).pipe(
-      map(this.handleLogin.bind(this)),
+      map(this.handleLogin),
       catchError(error => of(false))
     );
     // return this.http.post<Result<User>>(this.url + 'login', user);
   }
 
-  private handleLogin(r: Result<User>) {
+  private handleLogin = (r: Result<User>) => {
     if(r.success) {
       this.user = r.data;
       return true;
@@ -60,14 +60,14 @@ export class UserService {
       phone: user.phone,
       password: user.password
     }).pipe(
-      map(this.handleLogin.bind(this)),
+      map(this.handleLogin),
       catchError(error => of(false))
     );
   }
 
   isLogin() {
     return this.http.post<Result<User>>(this.url + 'is-login', null).pipe(
-      map(this.handleLogin.bind(this)),
+      map(this.handleLogin),
       catchError(error => of(false))
     );
   }

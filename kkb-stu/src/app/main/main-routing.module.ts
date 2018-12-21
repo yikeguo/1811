@@ -8,10 +8,14 @@ import { MessageComponent } from './ucenter/message/message.component';
 import { CommentComponent } from './ucenter/comment/comment.component';
 import { CollectionComponent } from './ucenter/collection/collection.component';
 import { AccountComponent } from './ucenter/account/account.component';
+import { AuthGuard } from '../auth.guard';
 
 const routes: Routes = [
   {
-    path: 'main', component: MainComponent, children: [
+    path: 'main', 
+    canActivate: [AuthGuard], 
+    component: MainComponent, 
+    children: [
       {path: 'ucenter', component: UcenterComponent, children: [
         {path: 'course', component: PathComponent},
         {path: 'message', component: MessageComponent},

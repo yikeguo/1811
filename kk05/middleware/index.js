@@ -54,3 +54,18 @@ module.exports.initLocals = async function (req, res, next) {
     // ];
     // next();// 进入后续中间件
 }
+
+module.exports.requireUser = function(req, res, next) {
+    if(!req.session.user) {
+        res.sendStatus(401)
+    }else {
+        next();
+    }
+}
+module.exports.requireAdmin = function(req, res, next) {
+    if(!req.session.user && req.orginalUrl !== '/admin/login') {
+        res.redirect('/admin/login')
+    }else {
+        next();
+    }
+}

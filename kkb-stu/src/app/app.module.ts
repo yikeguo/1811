@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -9,6 +9,10 @@ import { RxjsModule } from './rxjs/rxjs.module';
 import { HomeComponent } from './home/home.component';
 import { MainModule } from './main/main.module';
 import { CompCommunicateModule } from './comp-communicate/comp-communicate.module';
+import { registerLocaleData } from '@angular/common';
+import zh from '@angular/common/locales/zh';
+
+registerLocaleData(zh)
 
 @NgModule({
   declarations: [
@@ -24,7 +28,7 @@ import { CompCommunicateModule } from './comp-communicate/comp-communicate.modul
     MainModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [{provide: LOCALE_ID, useValue: 'zh'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

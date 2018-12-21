@@ -35,7 +35,8 @@
       <div class="stage" *ngFor="let s of stages; let isLast = last"
            [ngClass]="{running: s.state==1, done: s.state==2, last: isLast}">
         <span class="dot" [ngClass]="{running: s.state==1, done: s.state==2}"></span>
-        <a class="stage-name" [ngClass]="{running: s.state==1, done: s.state==2}">{{s.name}}</a>
+        <a class="stage-name" [ngClass]="{running: s.state==1, done: s.state==2}"
+             routerLink="./" [fragment]="'path-item-'+s.id">{{s.name}}</a>
       </div>
     </div>
 
@@ -48,7 +49,7 @@
       </div>
       <div class="tab-content" [ngSwitch]="tab">
         <div class="path-list" *ngSwitchCase="'path'">
-          path works
+          <app-path-item *ngFor="let s of stages" [stage]="s"></app-path-item>
         </div>
         <div class="rank-list" *ngSwitchCase="'rank'">
           rank works
@@ -58,6 +59,20 @@
     </app-box>
   </div>
   <div class="right">
-    <app-box></app-box>
+    <app-box>
+      <div class="header">
+        <span>学习计划</span>
+        <!--<span>{{today | date:'fullDate'}}</span>-->
+        <span>{{today | date:'yyyy年MM月dd日 EEEE'}}</span>
+      </div>
+      <div class="content">
+        <app-plan-item>
+          <a>往期课程会看</a>
+        </app-plan-item>
+        <app-plan-item>
+          <a href="">进入直播间</a>
+        </app-plan-item>
+      </div>
+    </app-box>
   </div>
 </div>
