@@ -46,13 +46,19 @@ app.use(session({
     saveUninitialized: false,
     cookie: {maxAge: 7 * 24 * 3600 * 1000}
 }))
+
+const history = require('connect-history-api-fallback');
+app.use(history());
 // 设置静态目录
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'),{
+    maxAge: 86400
+}));
 
 // 注册自定义中间件
 app.use(initLocals)
 
-
+const compression = require('compression');
+app.use(compression());
 
 // 路由注册
 app.use('/', indexRouter);
