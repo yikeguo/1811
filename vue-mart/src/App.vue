@@ -8,6 +8,18 @@
     <router-view/>
   </div>
 </template>
+<script>
+export default {
+  async created () {
+    const token = localStorage.getItem('token')
+    if (token) {
+      this.$store.commit('settoken', token)
+    }
+    const ret = await this.$axios.get('/api/goods')
+  }
+}
+</script>
+
 <style lang="stylus">
 #app
   font-family 'Avenir', Helvetica, Arial, sans-serif
