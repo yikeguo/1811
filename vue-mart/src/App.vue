@@ -3,13 +3,24 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
-      <router-link to="/login">login</router-link>
+      <router-link to="/login">login</router-link> | 
+      <span v-if="isLogin" @click="logout">退出</span>
     </div>
     <router-view/>
   </div>
 </template>
 <script>
 export default {
+  computed: {
+    isLogin() {
+      return !!this.$store.state.token
+    }
+  },
+  methods: {
+    logout() {
+      this.$axios.get('/api/logout')
+    }
+  },
   async created () {
     const token = localStorage.getItem('token')
     if (token) {

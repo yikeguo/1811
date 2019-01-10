@@ -73,19 +73,17 @@ export default {
       };
       const ret = await axios.get("/api/login", { params: obj });
       console.log(ret);
-      if (ret.status == 200) {
-        if (ret.data.code == 0) {
-          localStorage.setItem('token', ret.data.token)
-          this.$store.commit('settoken', ret.data.token)
+        if (ret.code == 0) {
+          localStorage.setItem('token', ret.token)
+          this.$store.commit('settoken', ret.token)
         } else {
           const toast = this.$createToast({
             time: 2000,
-            txt: ret.data.message || 'err未知错误',
+            txt: ret.message || 'err未知错误',
             type: 'error'
           })
           toast.show()
         }
-      }
     }
   }
 }

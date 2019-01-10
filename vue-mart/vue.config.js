@@ -19,6 +19,12 @@ module.exports = {
   configureWebpack: {
     devServer: {
       before(app) {
+        app.get('/api/logout', function(req, res) {
+          res.json({
+            code: -1
+          })
+        })
+
         app.get('/api/goods', function(req, res) {
           res.json({
             code: 0,
@@ -34,7 +40,7 @@ module.exports = {
           if (username == 'weikebang' && passwd == '123') {
             res.json({
               code: 0,
-              token: 'weikebangzhenbucuo-' + (new Date().getTime() + 1000 * 60)
+              token: 'weikebangzhenbucuo-' + (new Date().getTime() + 1000 * 60) + '-' +username
             })
           } else {
             res.json({
