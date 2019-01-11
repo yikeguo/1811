@@ -33,9 +33,24 @@ export default {
               placeholder: "请输入用户名"
             },
             rules: {
-              required: true
+              required: true,
+              type: 'string',
+              min: 3,
+              max: 15,
+              usercheck: (val) => {
+                return (reslove) => {
+                  this.$axios.get('/api/check?username=' + val).then(res => {
+                    reslove(res.code == 0)
+                  })
+                }
+              }
             },
-            trigger: "blur"
+            trigger: "blur",
+            messages: {
+              required: '请输入用户名',
+              min: '用户名小于3',
+              max: '用户名不超过15'
+            }
           },
           {
             type: "input",
