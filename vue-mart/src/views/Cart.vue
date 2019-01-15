@@ -13,6 +13,10 @@
     <div>
       总价 {{total}}
     </div>
+    <cube-button :disabled="true" v-if="total<minTotal">{{minTotal - total}} 可以购买</cube-button>
+    <cube-button v-else>下单
+      <span v-if="!token">(需要登录)</span>
+    </cube-button>
     <!-- <div>
       {{cart}}
     </div> -->
@@ -21,9 +25,15 @@
 <script>
 import {mapState, mapGetters} from 'vuex'
 export default {
+  data() {
+    return {
+      minTotal: 600
+    }
+  },
   computed: {
     ...mapState({
-      cart: state => state.cart
+      cart: state => state.cart,
+      token: state => state.token
     }),
     ...mapGetters({
       total: 'total'

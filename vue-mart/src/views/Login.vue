@@ -5,17 +5,24 @@
     </div>
     <!-- <cube-button>登录</cube-button> -->
     <cube-form
+     v-if="!$store.state.token"
      :model="model"
      :schema="schema"
      @submit="handleLogin"
      @validate="handleValidate">
     </cube-form>
+    <div v-else>
+      <p>已登录</p>
+      <i class="cubeic-person"></i>
+      <cube-button @click="logout">注销</cube-button>
+    </div>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
 import axios from "axios";
+import {mapState} from 'vuex'
 export default {
   data() {
     return {
@@ -77,6 +84,10 @@ export default {
     };
   },
   methods: {
+    logout () {
+      localStorage.removeItem('token')
+      this.$store.commit('settoken', '')
+    },
     handleValidate(ret) {
       console.log(ret);
     },
