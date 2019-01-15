@@ -3,10 +3,10 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+let store = new Vuex.Store({
   state: {
     token: '',
-    cart: []
+    cart: JSON.parse(localStorage.getItem('cart')) || []
   },
   mutations: {
     settoken (state, token) {
@@ -22,6 +22,14 @@ export default new Vuex.Store({
           cartCount: 1
         })
       }
+    },
+    cartremove (state, index) {
+      if (state.cart[index].cartCount > 1) {
+        state.cart[index].cartCount -= 1
+      }
+    },
+    cartadd (state, index) {
+      state.cart[index].cartCount += 1
     }
   },
   actions: {
@@ -34,6 +42,20 @@ export default new Vuex.Store({
         num += v.cartCount
       })
       return num
+    },
+    total: state => {
+      let num = 0
+      state.cart.forEach(v => {
+        num += v.cartCount * v.price
+      })
+      return num
     }
   }
 })
+
+store.subscribe((mutations, state) => {
+  console.log(mutations, state)
+  localStorage.setItem('cart', JSON.stringify(state.cart))
+})
+
+export default store

@@ -11,7 +11,7 @@
      :data="tabs"
      @change="changeHandler"
      show-slider>
-      <cube-tab v-for="(item, index) in tabs" :key="index" :icon="item.icon" :label="item.label">
+      <cube-tab v-for="(item, index) in tabs" :key="index" :icon="item.icon" :label="item.value">
         <span>{{item.label}}</span>
         <span class="badge" v-if="item.label=='Cart'">{{cartTotal}}</span>
       </cube-tab>
@@ -70,6 +70,12 @@ export default {
 </script>
 
 <style lang="stylus">
+.badge
+  display:inline-block
+  width:16px
+  background-color:#ff5a5f
+  color:#fff
+  border-radius:8px
 #app
   font-family 'Avenir', Helvetica, Arial, sans-serif
   -webkit-font-smoothing antialiased
