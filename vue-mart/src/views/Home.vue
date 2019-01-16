@@ -26,7 +26,7 @@
     </cube-drawer>
     <div class="ball-wrap">
       <transition>
-        <div class="ball">
+        <div class="ball" v-show="ball.show">
           <div class="inner">
             加
           </div>
@@ -59,6 +59,10 @@ export default {
       selectKeys:[],
       keys:[],
       data:[],
+      ball: {
+        show: false,
+        el: null
+      }
     }
   },
   methods:{
@@ -67,6 +71,10 @@ export default {
     },
     selectHandler(val){
       this.selectKeys = [...val]
+    },
+    onAddcart(el) {
+      this.ball.show = true
+      this.ball.el = el
     }
   },
   async created () {

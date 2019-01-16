@@ -10,7 +10,7 @@
           <div class="title">{{item.title}}</div>
           <div class="info">
             <span>{{item.count}}人购买</span>
-            <i class="cubeic-add" @click.stop.prevent="addCart(item)"></i>
+            <i class="cubeic-add" @click.stop.prevent="addCart($event, item)"></i>
           </div>
         </div>
       </router-link>
@@ -25,7 +25,6 @@ export default {
     addCart (event, item) {
       this.$store.commit('addCart', item)
       this.$emit('addcart', event.target)
-      console.log(item)
     },
     imgPreview(img) {
       this.$createImagePreview({

@@ -54,7 +54,6 @@ let store = new Vuex.Store({
 })
 
 store.subscribe((mutations, state) => {
-  console.log(mutations, state)
   localStorage.setItem('cart', JSON.stringify(state.cart))
 })
 
