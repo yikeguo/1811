@@ -9,8 +9,8 @@
         <div class="right">
           <div class="title">{{item.title}}</div>
           <div class="info">
-            <i class="cubeic-add" @click.stop.prevent="addCart(item)"></i>
             <span>{{item.count}}人购买</span>
+            <i class="cubeic-add" @click.stop.prevent="addCart(item)"></i>
           </div>
         </div>
       </router-link>
@@ -22,8 +22,9 @@
 export default {
   props: ["data"],
   methods: {
-    addCart (item) {
+    addCart (event, item) {
       this.$store.commit('addCart', item)
+      this.$emit('addcart', event.target)
       console.log(item)
     },
     imgPreview(img) {
@@ -39,17 +40,17 @@ export default {
 .item
   padding 10px
   overflow hidden
-  .left
-    width 100px
-    float left
-    img 
-      width 100%
-  .right
-    margin-left 120px
-    text-align  left
-    .title
-      line-height 30px
-    .cubeic-add
-      font-size 22px
+.left
+  width 100px
+  float left
+  img 
+    width 100%
+.right
+  margin-left 120px
+  text-align  right
+.title
+  line-height 30px
+.cubeic-add
+  font-size 22px
     
 </style>

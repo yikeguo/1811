@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <k-header showback title="微课帮"><i class="cubeic-more" @click='showCatg'></i></k-header>
     <cube-slide
       :data="slider"
       :threshold="0.7"
@@ -11,8 +12,8 @@
         </router-link>
       </cube-slide-item>
     </cube-slide>
-    <cube-button @click='showCatg'>选择分类</cube-button>
-    <goods-list :data="all"></goods-list>
+    <!-- <cube-button @click='showCatg'>选择分类</cube-button> -->
+    <goods-list @addcart="onAddcart" :data="all"></goods-list>
     <!-- :visible="showDrawer" -->
 
     <cube-drawer
@@ -23,12 +24,22 @@
     >
 
     </cube-drawer>
+    <div class="ball-wrap">
+      <transition>
+        <div class="ball">
+          <div class="inner">
+            加
+          </div>
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import GoodsList from '@/components/GoodsList.vue'
+import KHeader from '@/components/KHeader.vue'
 let labels = {
   'fe':'前端',
   'python':'Python',
@@ -39,7 +50,8 @@ let labels = {
 export default {
   name: 'home',
   components: {
-    GoodsList
+    GoodsList,
+    KHeader
   },
   data () {
     return {
@@ -84,7 +96,24 @@ export default {
   }
 }
 </script>
-<style>
-img{width:100%}
+<style lang="stylus">
+img.slider
+  width 100%
+.ball-wrap
+  .ball
+    position fixed
+    left 50%
+    bottom 10px
+    z-index 200
+    color red
+    transition all 0.5s cubic-bezier(0.49, -0.29, 0.75, 0.41)
+    .inner
+      width 16px
+      height 16px
+      
+      transition all 0.5s linear
+.cubeic-add
+  font-size 22px
+      
 </style>
 

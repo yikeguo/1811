@@ -6,6 +6,9 @@
       <router-link to="/login">login</router-link> | 
       <span v-if="isLogin" @click="logout">退出</span>
     </div> -->
+    <transition name="route-move">
+      <router-view/>
+    </transition>
     <cube-tab-bar
      v-model="selectLabel"
      :data="tabs"
@@ -15,10 +18,7 @@
         <span>{{item.label}}</span>
         <span class="badge" v-if="item.label=='Cart'">{{cartTotal}}</span>
       </cube-tab>
-     </cube-tab-bar>
-    <transition name="route-move">
-      <router-view/>
-    </transition>
+    </cube-tab-bar>
   </div>
 </template>
 <script>
@@ -70,6 +70,7 @@ export default {
 </script>
 
 <style lang="stylus">
+
 .badge
   display:inline-block
   width:16px
@@ -82,6 +83,7 @@ export default {
   -moz-osx-font-smoothing grayscale
   text-align center
   color #2c3e50
+  padding-bottom 40px
 
 #nav
   padding 30px
@@ -90,8 +92,16 @@ export default {
     color #2c3e50
     &.router-link-exact-active
       color #42b983
+
+
 .route-move-enter, .route-move-leave-active 
   transform :translate(100%, 0)
 .route-move.enter-active, .route-move-leave-active
   transition : transform 0.3s
+.cube-tab-bar
+  position fixed
+  bottom 0
+  left 0
+  right 0
+  background #edf0f4
 </style>
