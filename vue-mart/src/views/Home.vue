@@ -25,10 +25,13 @@
 
     </cube-drawer>
     <div class="ball-wrap">
-      <transition>
+      <transition
+       @before-enter="beforeEnter"
+       @enter="enter"
+       @afterEnter="afterEnter">
         <div class="ball" v-show="ball.show">
           <div class="inner">
-            加
+            <div class="cubeic-add"></div>
           </div>
         </div>
       </transition>
@@ -75,6 +78,28 @@ export default {
     onAddcart(el) {
       this.ball.show = true
       this.ball.el = el
+    },
+    beforeEnter(el) {
+      const dom = this.ball.el
+      const rect = dom.getBoundingClientRect()
+      console.log(rect.top, rect.left)
+      const x = rect.left-window.innerWidth/2
+      const y = -(window.innerHeight - rect.top - 30)
+      el.style.display = ''
+      el.style.transform = `translate3d( 0, ${y}px, 0)`
+      const inner = el.querySelector('.inner')
+      inner.style.transform = `translate3d(${x}px, 0, 0)`
+    },
+    enter(el, done) {
+      this._refflow = document.body.offsetHeight
+      el.style.transform = `translate3d( 0, 0, 0)`
+      const inner = el.querySelector('.inner')
+      inner.style.transform = `translate3d(0, 0, 0)`
+      el.addEventListener('transitionend', done)
+    },
+    afterEnter(el) {
+      this.ball.show = false
+      el.style.display = 'none'
     }
   },
   async created () {
