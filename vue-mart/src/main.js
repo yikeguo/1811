@@ -5,10 +5,12 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import setAxios from './setaxios'
+import notice from './components/notice'
 
 setAxios()
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
+Vue.prototype.$notice = notice
 
 new Vue({
   router,
