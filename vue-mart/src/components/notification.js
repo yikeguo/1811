@@ -4,9 +4,11 @@ import Vue from 'vue'
 //
 Notice.newInstance = props => {
   const Instance = new Vue({
-    data: props,
+    data() {
+      return props || {}
+    },
     render(h) {
-      return h(Alert, {
+      return h(Notice, {
         props
       })
     }
@@ -25,5 +27,5 @@ Notice.newInstance = props => {
     }
   }
 }
-export default Alert
+export default Notice
 

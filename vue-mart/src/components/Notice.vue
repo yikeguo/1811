@@ -2,7 +2,7 @@
   <div class="aler">
     <div class="alert-container" v-for="item in alerts" :key="item.id">
       <div class="alert-content">
-        {item.content}
+        {{item.content}}
       </div>
     </div>
   </div>
@@ -27,7 +27,7 @@ export default {
         this.dle(id)
       },duration)
     },
-    del(el) {
+    del(id) {
       for(let i =0; i<this.alerts.length; i++) {
         if(this.alerts[i].id = id) {
           this.alerts.splice(i, 1)

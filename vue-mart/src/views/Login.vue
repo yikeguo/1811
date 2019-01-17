@@ -83,6 +83,12 @@ export default {
       }
     };
   },
+  created(){
+    this.$notice.info({
+      duration: 10,
+      content: 'hello o'
+    })
+  },
   methods: {
     logout () {
       localStorage.removeItem('token')
