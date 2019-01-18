@@ -2,11 +2,11 @@ import Notification from './notification'
 
 let msgInstance
 
-function getInstance() {
+function getInstance () {
   msgInstance = msgInstance || Notification.newInstance()
   return msgInstance
 }
-function info ({duration=2, content=""}) {
+function info ({ duration = 2, content = '' }) {
   let ins = getInstance()
   ins.add({
     content,

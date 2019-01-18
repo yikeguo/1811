@@ -84,10 +84,10 @@ export default {
     };
   },
   created(){
-    this.$notice.info({
-      duration: 10,
-      content: 'hello o'
-    })
+    // this.$notice.info({
+    //   duration: 10,
+    //   content: 'hello o'
+    // })
   },
   methods: {
     logout () {
@@ -109,12 +109,16 @@ export default {
           localStorage.setItem('token', ret.token)
           this.$store.commit('settoken', ret.token)
         } else {
-          const toast = this.$createToast({
-            time: 2000,
-            txt: ret.message || 'err未知错误',
-            type: 'error'
+          this.$notice.info({
+            duration: 3,
+            content: ret.message || 'err未知错误'
           })
-          toast.show()
+          // const toast = this.$createToast({
+          //   time: 2000,
+          //   txt: ret.message || 'err未知错误',
+          //   type: 'error'
+          // })
+          // toast.show()
         }
     }
   }

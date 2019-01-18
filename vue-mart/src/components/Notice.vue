@@ -1,5 +1,5 @@
 <template>
-  <div class="aler">
+  <div class="alert">
     <div class="alert-container" v-for="item in alerts" :key="item.id">
       <div class="alert-content">
         {{item.content}}
@@ -24,8 +24,8 @@ export default {
       this.alerts.push(_alert)
       const duration = option.duration
       setTimeout(() => {
-        this.dle(id)
-      },duration)
+        this.del(id)
+      },duration*1000)
     },
     del(id) {
       for(let i =0; i<this.alerts.length; i++) {
@@ -38,6 +38,16 @@ export default {
   }
 }
 </script>
-<style>
-
+<style lang="stylus">
+.alert
+  position fixed
+  width 100%
+  top 30px
+  left 0
+  text-align center
+  .alert-content
+    display inline-block
+    padding 8px
+    background #fff
+    margin-bottom 10px
 </style>
