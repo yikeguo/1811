@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p>{{name}}</p>
+    <p v-text="name"></p>
+    <p>{{age}}</p>
+    <input type="text" v-model="name">
+    <button @click="changeName">点我</button>
+  </div>
+</body>
+<script src="js/compile.js"></script>
+<script src="app.js"></script>
+<script>
+  let vm = new Vue({
+    el: '#app',
+    data: {
+      say: 'hello',
+      name: 'world',
+      age: '5'
+    },
+    methods: {
+      changeName() {
+        this.name = 'wkb真不错'
+      }
+    }
+  })
+</script>
+</html>

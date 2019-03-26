@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p>
+      你好 <span id="name">weikebang</span>
+    </p>
+  </div>
+  <script>
+    const obj = {}
+    Object.defineProperty(obj, 'name', {
+      get() {
+        console.log('get name')
+        return document.querySelector('#name').innerHTML
+      },
+      set(name) {
+        console.log('change attr')
+        document.querySelector('#name').innerHTML = name
+      }
+    })
+      console.log(obj.name)
+  </script>
+</body>
+</html>
